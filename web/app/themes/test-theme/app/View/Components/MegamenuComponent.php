@@ -44,6 +44,9 @@ class MegamenuComponent extends Component
                 $obj->url = $item->url;
                 $obj->title = $item->title;
                 $obj->id = $item->ID;
+                $obj->childrens = array_column(array_filter($this->rawMenuItems, function($rawItem) use ($item) {
+                    return intval($rawItem->menu_item_parent) == $item->ID;
+                }), 'object_id');
                 $obj->hasChildren = (bool)array_filter($this->rawMenuItems, function($rawItem) use ($item) {
                     return intval($rawItem->menu_item_parent) == $item->ID;
                 });
@@ -66,7 +69,7 @@ class MegamenuComponent extends Component
                         $obj = new StdClass;
                         $obj->url = $item->url;
                         $obj->title = $item->title;
-                        $obj->id = $item->ID;
+                        $obj->id = intval($item->object_id);
                         $obj->image = (object) get_field("nav_item_preview", $item->ID);
                         return $obj;
                     }, $items);
