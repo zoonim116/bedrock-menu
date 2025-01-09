@@ -19,11 +19,6 @@ domReady(async () => {
   }
 
   parents.forEach((parent) => {
-    // parent.onmouseout = function(e) {
-    //   console.log('out');
-    //   document.querySelector(`.megamenu [data-parent-id=${parent.id}]`).classList.add('hidden');
-    // }
-
     parent.onmouseover = function(e) {
       document.querySelectorAll('[data-parent-id]').forEach((elem) => elem.classList.add('hidden'));
       document.querySelector(`.megamenu [data-parent-id=${parent.id}]`).classList.remove('hidden');
